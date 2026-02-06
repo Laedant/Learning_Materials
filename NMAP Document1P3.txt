@@ -1,0 +1,111 @@
+NMAP Document1P2
+-----------------
+Audit the security aspects of networks
+Simulate penetration tests
+Check firewall and IDS settings and configurations
+Types of possible connections
+Network mapping
+Response analysis
+Identify open ports
+Vulnerability assessment as well.
+-----------------
+Types Of Scans
+-----------------
+Host discovery
+Port scanning
+Service enumeration and detection
+OS detection
+Scriptable interaction with the target service (Nmap Scripting Engine)
+
+
+-----------------
+Commands/Scanning Options
+-----------------
+nmap <scan types> <options> <target>
+nmap --help
+10.129.2.0/24	Target network range.
+-sn	Disables port scanning.
+-oA tnet	Stores the results in all formats starting with the name 'tnet'.
+-iL	Performs defined scans against targets in provided 'hosts.lst' list.
+10.129.2.18	Performs defined scans against the target.
+-sn	Disables port scanning.
+-oA host	Stores the results in all formats starting with the name 'host'.
+-PE	Performs the ping scan by using 'ICMP Echo requests' against the target.
+--packet-trace	Shows all packets sent and received
+--reason	Displays the reason for specific result.
+-F	Scans the top 100 ports available
+-p 21	Scans only the specified port.
+--packet-trace	Shows all packets sent and received.
+-n	Disables DNS resolution.
+--disable-arp-ping	Disables ARP ping.
+-Pn	Disables ICMP Echo requests.
+-sU	Performs a UDP scan.
+-sV	Performs a service scan.
+-sS	Performs an TCP SYN-Scan.
+-sA	Performs an TCP ACK-Scan.
+-p-	Scans all ports available
+-A	Aggressive scan aka doing many advanced things at once, and gets you target hostname.
+--script vuln [IP]	Show any vulnerabilities into the port/services associated with it.
+
+
+--------------------
+State
+-------------------
+open	This indicates that the connection to the scanned port has been established. These connections can be TCP connections, UDP datagrams as well as SCTP associations.
+closed	When the port is shown as closed, the TCP protocol indicates that the packet we received back contains an RST flag. This scanning method can also be used to determine if our target is alive or not.
+filtered	Nmap cannot correctly identify whether the scanned port is open or closed because either no response is returned from the target for the port or we get an error code from the target.
+unfiltered	This state of a port only occurs during the TCP-ACK scan and means that the port is accessible, but it cannot be determined whether it is open or closed.
+open|filtered	If we do not get a response for a specific port, Nmap will set it to that state. This indicates that a firewall or packet filter may protect the port.
+closed|filtered	This state only occurs in the IP ID idle scans and indicates that it was impossible to determine if the scanned port is closed or filtered by a firewall.
+
+------------------
+Request of Scan
+------------------
+SENT (0.0429s)	Indicates the SENT operation of Nmap, which sends a packet to the target.
+TCP	Shows the protocol that is being used to interact with the target port.
+10.10.14.2:63090 >	Represents our IPv4 address and the source port, which will be used by Nmap to send the packets.
+10.129.2.28:21	Shows the target IPv4 address and the target port.
+S	SYN flag of the sent TCP packet.
+ttl=56 id=57322 iplen=44 seq=1699105818 win=1024 mss 1460	Additional TCP Header parameters.
+
+-----------------
+Response of Scan
+-----------------
+RCVD (0.0573s)	Indicates a received packet from the target.
+TCP	Shows the protocol that is being used.
+10.129.2.28:21 >	Represents targets IPv4 address and the source port, which will be used to reply.
+10.10.14.2:63090	Shows our IPv4 address and the port that will be replied to.
+RA	RST and ACK flags of the sent TCP packet.
+ttl=64 id=0 iplen=40 seq=0 win=0	Additional TCP Header parameters.
+
+
+-----------------
+File Formats
+-----------------
+Normal output (-oN) with the .nmap file extension
+Grepable output (-oG) with the .gnmap file extension
+XML output (-oX) with the .xml file extension
+
+
+Can change .xml to .hmtl by
+
+xsltproc target.xml -o target.html
+
+
+
+-----------------
+Command of Priorities
+-----------------
+nmap -p- [IP]	Will display the ports that vulnerable to attacks
+nmap -p[Port] [IP]	Check out specified ports
+nmap -A [IP]	Will do an advanced search of the system for user and etc.
+nmap -sV [IP]	Runs an port scan for vuln by looking at versions of the ports
+nmap --script vuln [IP]	Looks for script aka applications or scripts that are running that you can use to use vulns.
+
+
+
+
+
+
+
+Linux exploit suggester
